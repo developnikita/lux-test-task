@@ -3,9 +3,11 @@ using MQTTnet;
 using MQTTnet.Client.Options;
 using OfficeOpenXml;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -35,20 +37,9 @@ namespace DataProducer
             var client = factory.CreateMqttClient();
             var result = await client.ConnectAsync(options, CancellationToken.None);
 
-            while (true)
-            {
-                var message = new MqttApplicationMessageBuilder()
-                            .WithTopic("MyTopic")
-                            .WithPayload("Hello World")
-                            .WithQualityOfServiceLevel(1)
-                            .WithRetainFlag(true)
-                            .Build();
-                await client.PublishAsync(message, CancellationToken.None);
-                Thread.Sleep(1000);
-            }
-
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             var sb = new StringBuilder();
+            var list = new List<SpeedAndPump>();
             using (ExcelPackage excelPackage = new ExcelPackage(new FileInfo(@"C:\Users\Nekit\Desktop\SpeedAndPump.xlsx")))
             {
                 var worksheet = excelPackage.Workbook.Worksheets.First();
@@ -58,10 +49,28 @@ namespace DataProducer
                 for (int rowNum = 1; rowNum <= totalRows; ++rowNum)
                 {
                     var row = worksheet.Cells[rowNum, 1, rowNum, totalColumns].Select(c => c.Value == null ? string.Empty : c.Value.ToString());
+                    if (double.TryParse(row.ElementAt(0), out double firstColumnValue) && 
+                        double.TryParse(row.ElementAt(1), out double secondColumnValue) &&
+                        double.TryParse(row.ElementAt(2), out double thirdColumnValue))
+                    {
+                        list.Add(new SpeedAndPump(firstColumnValue, secondColumnValue, thirdColumnValue));
+                    }
+
                     sb.AppendLine(string.Join(",", row));
                 }
             }
-            // Console.WriteLine(sb.ToString());
+
+            foreach (var item in list)
+            {
+                var message = new MqttApplicationMessageBuilder()
+                            .WithTopic("MyTopic")
+                            .WithPayload(JsonSerializer.Serialize<SpeedAndPump>(item))
+                            .WithQualityOfServiceLevel(1)
+                            .WithRetainFlag(true)
+                            .Build();
+                await client.PublishAsync(message, CancellationToken.None);
+                Thread.Sleep(10000);
+            }
         }
     }
 }
