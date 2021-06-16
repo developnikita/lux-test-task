@@ -1,4 +1,5 @@
-﻿using MQTTnet;
+﻿using Microsoft.Extensions.Configuration;
+using MQTTnet;
 using MQTTnet.Client.Options;
 using OfficeOpenXml;
 using System;
@@ -12,20 +13,27 @@ namespace DataProducer
 {
     class Program
     {
+        public static IConfiguration Configuration;
+
         static async Task Main(string[] args)
         {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false);
+
+            Configuration = builder.Build();
+
+            var mqttBrokerSettings = Configuration.GetSection(nameof(MQTTBrokerSettings)).Get<MQTTBrokerSettings>();
+
             var factory = new MqttFactory();
             var options = new MqttClientOptionsBuilder()
-                .WithTcpServer("localhost", 1883)
-                .WithCredentials("admin", "admin")
+                .WithTcpServer(mqttBrokerSettings.Host, mqttBrokerSettings.Port)
+                .WithCredentials(mqttBrokerSettings.User, mqttBrokerSettings.Password)
                 .WithClientId(Guid.NewGuid().ToString())
                 .Build();
 
             var client = factory.CreateMqttClient();
             var result = await client.ConnectAsync(options, CancellationToken.None);
-
-            if (client.IsConnected)
-                Console.WriteLine("YES");
 
             while (true)
             {
