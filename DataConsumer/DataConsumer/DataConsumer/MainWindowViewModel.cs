@@ -69,8 +69,7 @@ namespace DataConsumer
         private void OnSubscriberMessageReceived(MqttApplicationMessageReceivedEventArgs x)
         {
             var item = $"Timestamp: {DateTime.Now:O} | Topic: {x.ApplicationMessage.Topic} | Payload: {x.ApplicationMessage.ConvertPayloadToString()} | QoS: {x.ApplicationMessage.QualityOfServiceLevel}";
-            Text = item;
-            // this.BeginInvoke((MethodInvoker)delegate { this.TextBoxSubscriber.Text = item + Environment.NewLine + this.TextBoxSubscriber.Text; });
+            Text = x.ApplicationMessage.ConvertPayloadToString();
         }
 
         private void OnSubscriberConnected(MqttClientConnectedEventArgs e)
