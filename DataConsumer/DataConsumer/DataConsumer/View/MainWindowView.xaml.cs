@@ -1,16 +1,20 @@
-﻿using System;
+﻿using DataConsumer.Helpers;
+using DataConsumer.ViewModel;
+using System;
 using System.Windows;
 
-namespace DataConsumer
+namespace DataConsumer.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindowView : Window
     {
-        public MainWindowView()
+        public MainWindowView(MainWindowViewModel dataContext)
         {
             InitializeComponent();
+            this.DataContext = dataContext;
+            this.Show();
         }
 
         protected override void OnSourceInitialized(EventArgs e)

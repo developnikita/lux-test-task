@@ -1,17 +1,20 @@
 ﻿using Common.DataSendType;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Common.PubSub;
 
-namespace DataConsumer
+namespace DataConsumer.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public MainWindowViewModel()
+        public MainWindowViewModel(IMessageConsume<SpeedAndPump> data)
         {
+            _data = data;
+            _data.OnConsume += OnConsume;
+        }
 
+        private void OnConsume(object sender, SpeedAndPump e)
+        {
+            AdvisedLineSpeed = e.Speed.ToString(".##");
+            AdvisedPumpRate = e.Pump.ToString(".##");
         }
 
         public string AdvisedLineSpeed
@@ -30,7 +33,7 @@ namespace DataConsumer
             }
         }
 
-        public string AdvicedPumpRate
+        public string AdvisedPumpRate
         {
             get
             {
@@ -42,11 +45,12 @@ namespace DataConsumer
                     return;
 
                 _advisedPumpRate = value;
-                RaisePropertyChanged(nameof(AdvicedPumpRate));
+                RaisePropertyChanged(nameof(AdvisedPumpRate));
             }
         }
 
         private string _advisedLineSpeed;
         private string _advisedPumpRate;
+        private IMessageConsume<SpeedAndPump> _data;
     }
 }

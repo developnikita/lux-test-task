@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 
-namespace DataConsumer
+namespace DataConsumer.Helpers
 {
     public static class IconHelper
     {
