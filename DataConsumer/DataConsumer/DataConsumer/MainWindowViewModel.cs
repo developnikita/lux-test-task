@@ -1,99 +1,52 @@
-﻿using MQTTnet;
-using MQTTnet.Client;
-using MQTTnet.Client.Connecting;
-using MQTTnet.Client.Disconnecting;
-using MQTTnet.Client.Options;
-using MQTTnet.Client.Receiving;
+﻿using Common.DataSendType;
 using System;
-using System.ComponentModel;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace DataConsumer
 {
-    public class MainWindowViewModel : INotifyPropertyChanged
+    public class MainWindowViewModel : ViewModelBase
     {
         public MainWindowViewModel()
         {
-            _text = string.Empty;
-            var factory = new MqttFactory();
-            var options = new MqttClientOptionsBuilder()
-                .WithTls(new MqttClientOptionsBuilderTlsParameters()
-                {
-                    UseTls = false,
-                    IgnoreCertificateChainErrors = true,
-                    IgnoreCertificateRevocationErrors = true,
-                    AllowUntrustedCertificates = true,
-                })
-                .WithClientId(Guid.NewGuid().ToString())
-                .WithTcpServer("localhost", 1883)
-                .WithCredentials("admin", "admin")
-                .WithCleanSession(true)
-                .WithKeepAlivePeriod(TimeSpan.FromSeconds(5))
-                .Build();
 
-            _client = factory.CreateMqttClient();
-            _client.ConnectedHandler = new MqttClientConnectedHandlerDelegate(OnSubscriberConnected);
-            _client.DisconnectedHandler = new MqttClientDisconnectedHandlerDelegate(OnSubscriberDisconnected);
-            _client.ApplicationMessageReceivedHandler = new MqttApplicationMessageReceivedHandlerDelegate(OnSubscriberMessageReceived);
-
-            Task.Run(() => _client.ConnectAsync(options)).Wait();
-
-
-            Task.Run(() =>
-            {
-                var topicFilter = new MqttTopicFilterBuilder()
-                    .WithTopic("SpeedAndPump")
-                    .Build();
-                _client.SubscribeAsync(topicFilter);
-            }).Wait();
         }
 
-        public string Text
+        public string AdvisedLineSpeed
         {
             get
             {
-                return _text;
+                return _advisedLineSpeed;
             }
-
             set
             {
-                if (_text == value)
+                if (_advisedLineSpeed == value)
                     return;
 
-                _text = value;
-                RaisePropertyChanged(nameof(Text));
+                _advisedLineSpeed = value;
+                RaisePropertyChanged(nameof(AdvisedLineSpeed));
             }
         }
 
-        private void OnSubscriberMessageReceived(MqttApplicationMessageReceivedEventArgs x)
+        public string AdvicedPumpRate
         {
-            var item = $"Timestamp: {DateTime.Now:O} | Topic: {x.ApplicationMessage.Topic} | Payload: {x.ApplicationMessage.ConvertPayloadToString()} | QoS: {x.ApplicationMessage.QualityOfServiceLevel}";
-            Text = x.ApplicationMessage.ConvertPayloadToString();
-        }
-
-        private void OnSubscriberConnected(MqttClientConnectedEventArgs e)
-        {
-            MessageBox.Show("Subscriber connected", "ConnectHandler");
-        }
-
-        private void OnSubscriberDisconnected(MqttClientDisconnectedEventArgs e)
-        {
-            MessageBox.Show("Subscriber disconnected", "DisconnectHandler");
-        }
-
-        protected virtual void RaisePropertyChanged(string propertyName)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
+            get
             {
-                handler(this, new PropertyChangedEventArgs(propertyName));
+                return _advisedPumpRate;
+            }
+            set
+            {
+                if (_advisedPumpRate == value)
+                    return;
+
+                _advisedPumpRate = value;
+                RaisePropertyChanged(nameof(AdvicedPumpRate));
             }
         }
 
-        private IMqttClient _client;
-        private string _text;
-
-        public event PropertyChangedEventHandler PropertyChanged;
+        private string _advisedLineSpeed;
+        private string _advisedPumpRate;
     }
 }
