@@ -2,8 +2,8 @@
 
 namespace Common.PubSub
 {
-    public class IMessageConsume<TConsume>
+    public interface IMessageConsume<TConsume>
     {
-        event EventHandler<TConsume> OnConsume;
+        public event EventHandler<TConsume> OnConsume;
     }
 }
