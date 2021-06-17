@@ -1,4 +1,5 @@
-﻿using MQTTnet;
+﻿using Common.PubSub;
+using MQTTnet;
 using MQTTnet.Client;
 using System.Threading;
 

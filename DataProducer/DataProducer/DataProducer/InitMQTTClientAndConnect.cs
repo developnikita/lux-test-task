@@ -1,4 +1,5 @@
-﻿using MQTTnet;
+﻿using Common.Settings;
+using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Client.Options;
 using System;
