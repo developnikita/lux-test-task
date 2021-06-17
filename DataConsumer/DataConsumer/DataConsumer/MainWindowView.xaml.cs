@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace DataConsumer
 {
@@ -11,6 +12,11 @@ namespace DataConsumer
         {
             InitializeComponent();
             this.DataContext = new MainWindowViewModel();
+        }
+
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            IconHelper.RemoveIcon(this);
         }
     }
 }

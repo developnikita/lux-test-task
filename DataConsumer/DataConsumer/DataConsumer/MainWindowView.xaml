@@ -5,8 +5,71 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DataConsumer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Width="385"
+        Height="170">
+    <Window.Resources>
+        <ControlTemplate x:Key="TintedGroupBox" TargetType="GroupBox">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--Header area-->
+                <Border Grid.Row="0"
+                        Background="LightGray"
+                        BorderBrush="Gray"
+                        BorderThickness="1"
+                        CornerRadius="2,2,0,0" >
+                    <ContentPresenter Margin="4"
+                                      ContentSource="Header"
+                                      RecognizesAccessKey="True" />
+                </Border>
+                <!-- Main area -->
+                <Border Grid.Row="1"
+                        Background="White"
+                        BorderBrush="Gray"
+                        BorderThickness="1,0,1,1"
+                        CornerRadius="0,0,2,2" >
+                    <ContentPresenter Margin="4" 
+                                      HorizontalAlignment="Center" 
+                                      VerticalAlignment="Center" />
+                </Border>
+            </Grid>
+        </ControlTemplate>
+        
+    </Window.Resources>
+
     <Grid>
-        <TextBlock Text="{Binding Text}"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Grid.Column="0" 
+                  Template="{StaticResource TintedGroupBox}"
+                  Margin="10 10 15 10">
+            <GroupBox.Header>
+                <TextBlock HorizontalAlignment="Center" 
+                           Text="Advised Line Speed" 
+                           FontWeight="Bold"
+                           FontSize="15"/>
+            </GroupBox.Header>
+            <TextBlock Text="100"
+                       Foreground="#22B14C"
+                       FontSize="56"/>
+        </GroupBox>
+        <GroupBox Grid.Column="1" 
+                  Template="{StaticResource TintedGroupBox}"
+                  Margin="15 10 10 10">
+            <GroupBox.Header>
+                <TextBlock HorizontalAlignment="Center" 
+                           Text="Advised Pump Rate" 
+                           FontWeight="Bold"
+                           FontSize="15"/>
+            </GroupBox.Header>
+            <TextBlock Text="8.3" 
+                       Foreground="#22B14C"
+                       FontSize="56"/>
+        </GroupBox>
     </Grid>
 </Window>

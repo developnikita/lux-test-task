@@ -43,7 +43,7 @@ namespace DataConsumer
             Task.Run(() =>
             {
                 var topicFilter = new MqttTopicFilterBuilder()
-                    .WithTopic("MyTopic")
+                    .WithTopic("SpeedAndPump")
                     .Build();
                 _client.SubscribeAsync(topicFilter);
             }).Wait();
