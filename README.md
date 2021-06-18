@@ -34,7 +34,7 @@ docker exec -it rabbitmq bin/bash
 rabbitmq-plugins enable rabbitmq_mqtt
 rabbitmq-plugins enable rabbitmq_web_mqtt
 ```
-Exit from container command line and restart dockey by command:
+Exit from container command line and restart docker by command:
 ```sh
 docker-compose restart
 ```
