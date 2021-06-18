@@ -1,5 +1,6 @@
 ﻿using Common.DataSendType;
 using Common.Settings;
+using DataProducer.MQTT;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using System.Text.Json;
