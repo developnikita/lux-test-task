@@ -26,7 +26,7 @@ docker-compose up
 ```
 ##### For enable MQTT plugin in RabbitMQ:
 ```sh
-docker exec -it rabbitmq bin/bash
+docker exec -it rabbitmqMqtt bin/bash
 rabbitmq-plugins enable rabbitmq_mqtt
 rabbitmq-plugins enable rabbitmq_web_mqtt
 ```
