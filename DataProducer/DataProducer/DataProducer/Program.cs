@@ -18,6 +18,7 @@ namespace DataProducer
                               .SetBasePath(Directory.GetCurrentDirectory())
                               .AddJsonFile("appsettings.json", optional: false);
 
+
             Configuration = builder.Build();
 
             var mqttBrokerSettings = Configuration.GetSection(nameof(MQTTBrokerSettings)).Get<MQTTBrokerSettings>();

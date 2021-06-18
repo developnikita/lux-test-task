@@ -27,8 +27,15 @@ namespace DataProducer
                 int rowNum = isTabelContainsHeader ? 2 : 1;
                 for (; rowNum <= totalRows; ++rowNum)
                 {
-                    var row = worksheet.Cells[rowNum, 1, rowNum, totalColumns].Select(c => c.Value == null ? string.Empty : c.Value.ToString());
-                    resultList.Add(_fromStringColumnCollectionToResultConverter(row));
+                    try
+                    {
+                        var row = worksheet.Cells[rowNum, 1, rowNum, totalColumns].Select(c => c.Value == null ? string.Empty : c.Value.ToString());
+                        resultList.Add(_fromStringColumnCollectionToResultConverter(row));
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        Console.WriteLine($"Incorrect data from file. Cannot convert to {typeof(TResult)}. Error message: {ex.Message}");
+                    }
                 }
             }
 
