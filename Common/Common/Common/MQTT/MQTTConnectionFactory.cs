@@ -6,9 +6,9 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DataProducer
+namespace DataProducer.MQTT
 {
-    public static class InitMQTTClientAndConnect
+    public static class MQTTConnectionFactory
     {
         public async static Task<IMqttClient> InitMqttClient(MQTTBrokerSettings setting)
         {

@@ -23,7 +23,7 @@ namespace DataProducer
             var mqttMessageTpoic = Configuration.GetSection(nameof(MQTTBrokerTopic)).Get<MQTTBrokerTopic>();
             var dataFileSettings = Configuration.GetSection(nameof(DataFileSettings)).Get<DataFileSettings>();
 
-            var client = InitMQTTClientAndConnect.InitMqttClient(mqttBrokerSettings).Result;
+            var client = MQTTConnectionFactory.InitMqttClient(mqttBrokerSettings).Result;
             var list = new XlsxFileReader<SpeedAndPump>(SpeedAndPumpConverter.ConvertFromColumnCollection);
             var publisher = new MQTTMessagePublish(client, mqttMessageTpoic.Topic);
 
