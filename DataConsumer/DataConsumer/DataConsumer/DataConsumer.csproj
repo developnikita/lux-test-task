@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Common" Version="1.0.7" />
+    <ProjectReference Include="..\..\..\Common\Common\Common\Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>
