@@ -1,0 +1,44 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTemplate x:Key="TintedGroupBox" TargetType="GroupBox">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!--Header area-->
+            <Border Grid.Row="0"
+                        Background="LightGray"
+                        BorderBrush="Gray"
+                        BorderThickness="1"
+                        CornerRadius="2,2,0,0" >
+                <ContentPresenter Margin="4"
+                                      ContentSource="Header"
+                                      RecognizesAccessKey="True" />
+            </Border>
+            <!-- Main area -->
+            <Border Grid.Row="1"
+                        Background="White"
+                        BorderBrush="Gray"
+                        BorderThickness="1,0,1,1"
+                        CornerRadius="0,0,2,2" >
+                <ContentPresenter Margin="4" 
+                                      HorizontalAlignment="Center" 
+                                      VerticalAlignment="Center" />
+            </Border>
+        </Grid>
+    </ControlTemplate>
+
+    <Style x:Key="TintedGroupBoxTextBlockHeader"
+               TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+
+    <Style x:Key="TintedGroupBoxTextBlockContent"
+               TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#22B14C"/>
+        <Setter Property="FontSize" Value="56"/>
+    </Style>
+</ResourceDictionary>

@@ -17,7 +17,23 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Common" Version="1.0.5" />
+    <PackageReference Include="Common" Version="1.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="StringResources\Resource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="StringResources\Resource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

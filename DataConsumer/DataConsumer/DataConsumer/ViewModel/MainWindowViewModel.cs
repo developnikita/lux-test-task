@@ -13,8 +13,8 @@ namespace DataConsumer.ViewModel
 
         private void OnConsume(object sender, SpeedAndPump e)
         {
-            AdvisedLineSpeed = e.Speed.ToString(".##");
-            AdvisedPumpRate = e.Pump.ToString(".##");
+            AdvisedLineSpeed = string.Format("{0:0.00}", e.Speed);
+            AdvisedPumpRate = string.Format("{0:0.00}", e.Pump);
         }
 
         public string AdvisedLineSpeed

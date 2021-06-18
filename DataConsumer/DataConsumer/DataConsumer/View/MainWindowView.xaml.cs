@@ -1,6 +1,7 @@
 ﻿using DataConsumer.Helpers;
 using DataConsumer.ViewModel;
 using System;
+using DataConsumer;
 using System.Windows;
 
 namespace DataConsumer.View

@@ -3,40 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:string="clr-namespace:DataConsumer.StringResources"
         xmlns:local="clr-namespace:DataConsumer.View"
         mc:Ignorable="d"
-        Width="400"
+        Width="450"
         Height="200">
     <Window.Resources>
-        <ControlTemplate x:Key="TintedGroupBox" TargetType="GroupBox">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <!--Header area-->
-                <Border Grid.Row="0"
-                        Background="LightGray"
-                        BorderBrush="Gray"
-                        BorderThickness="1"
-                        CornerRadius="2,2,0,0" >
-                    <ContentPresenter Margin="4"
-                                      ContentSource="Header"
-                                      RecognizesAccessKey="True" />
-                </Border>
-                <!-- Main area -->
-                <Border Grid.Row="1"
-                        Background="White"
-                        BorderBrush="Gray"
-                        BorderThickness="1,0,1,1"
-                        CornerRadius="0,0,2,2" >
-                    <ContentPresenter Margin="4" 
-                                      HorizontalAlignment="Center" 
-                                      VerticalAlignment="Center" />
-                </Border>
-            </Grid>
-        </ControlTemplate>
-
+        
     </Window.Resources>
 
     <Grid>
@@ -49,27 +22,21 @@
                   Template="{StaticResource TintedGroupBox}"
                   Margin="10 10 15 10">
             <GroupBox.Header>
-                <TextBlock HorizontalAlignment="Center" 
-                           Text="Advised Line Speed" 
-                           FontWeight="Bold"
-                           FontSize="15"/>
+                <TextBlock Text="{Binding Source={x:Static string:Resource.AdvisedLineSpeedGroupBoxTitle}}" 
+                           Style="{StaticResource TintedGroupBoxTextBlockHeader}"/>
             </GroupBox.Header>
             <TextBlock Text="{Binding AdvisedLineSpeed}"
-                       Foreground="#22B14C"
-                       FontSize="56"/>
+                       Style="{StaticResource TintedGroupBoxTextBlockContent}"/>
         </GroupBox>
         <GroupBox Grid.Column="1" 
                   Template="{StaticResource TintedGroupBox}"
                   Margin="15 10 10 10">
             <GroupBox.Header>
-                <TextBlock HorizontalAlignment="Center" 
-                           Text="Advised Pump Rate" 
-                           FontWeight="Bold"
-                           FontSize="15"/>
+                <TextBlock Text="{Binding Source={x:Static string:Resource.AdvisedPumpRateGroupBoxTitle}}"
+                           Style="{StaticResource TintedGroupBoxTextBlockHeader}"/>
             </GroupBox.Header>
             <TextBlock Text="{Binding AdvisedPumpRate}" 
-                       Foreground="#22B14C"
-                       FontSize="56"/>
+                       Style="{StaticResource TintedGroupBoxTextBlockContent}"/>
         </GroupBox>
     </Grid>
 </Window>
