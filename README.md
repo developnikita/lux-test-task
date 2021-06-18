@@ -4,14 +4,10 @@ Simple app with data producer and data consumer with connect by MQTT protocol.
 
 ## Project structure
 
-1. DataConsumer
-WPF project whitch get data from MQTT broker
-2. DataProducer
-Console app whitch read data from xlsx file and send it by mqtt protocol to broker
-3. Common
-Library whitch contains publish, subscribe and read interface
-4. Test
-A project with tests
+1. DataConsumer: WPF project whitch get data from MQTT broker
+2. DataProducer: Console app whitch read data from xlsx file and send it by mqtt protocol to broker
+3. Common: Library whitch contains publish, subscribe and read interface
+4. Test: A project with tests
 
 ## Installation
 
@@ -38,8 +34,8 @@ Exit from container command line and restart docker by command:
 ```sh
 docker-compose restart
 ```
-To open a project in visual studio use the solution in the DataProducerConsumer folder. Then run the projects from VisualStudio.
-OR
+To open a project in visual studio use the solution in the DataProducerConsumer folder. Then run the projects from VisualStudio.  
+OR  
 From folder **lux-test-task\DataProducer\DataProducer\DataProducer** execute command:
 ```sh
 dotnet run
